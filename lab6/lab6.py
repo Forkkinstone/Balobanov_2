@@ -29,3 +29,23 @@ def rk_search(text, pattern, d=256, q=101):
                 t = t + q
 
     return occurrences
+
+if __name__ == "__main__":
+    text_data = "GEEKS FOR GEEKS"
+    pattern_data = "GEEKS"
+    
+    # Параметры d и q можно оставить по умолчанию
+    print(f"Текст:   '{text_data}'")
+    print(f"Искомое: '{pattern_data}'")
+    print("-" * 35)
+
+    found_indices = rk_search(text_data, pattern_data)
+
+    if found_indices:
+        print(f"Результат: Найдено {len(found_indices)} вхождений.")
+        for pos in found_indices:
+            print(f"-> Индекс: {pos}")
+            print(text_data)
+            print(" " * pos + "^" * len(pattern_data))
+    else:
+        print("Ничего не найдено.")
