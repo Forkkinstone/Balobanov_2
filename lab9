@@ -1,0 +1,44 @@
+def solve_tsp(matrix):
+    n = len(matrix)
+    # Кэш для хранения результатов: (маска_посещенных, текущий_город)
+    memo = {}
+
+    def get_path(mask, last_city):
+        # Базовый случай: если все города посещены (маска состоит из всех единиц)
+        if mask == (1 << n) - 1:
+            # Возвращаемся из последнего города в самый первый (0-й)
+            return matrix[last_city][0]
+
+        # Если мы уже считали этот вариант, возвращаем из кэша
+        state = (mask, last_city)
+        if state in memo:
+            return memo[state]
+
+        res = float('inf')
+
+        # Пытаемся пойти в любой город `next_city`, в котором еще не были
+        for next_city in range(n):
+            # Проверяем, не посещен ли город (i-й бит в маске равен 0)
+            if not (mask & (1 << next_city)):
+                # Рекурсивно идем дальше, добавляя город в маску
+                new_res = matrix[last_city][next_city] + get_path(mask | (1 << next_city), next_city)
+                res = min(res, new_res)
+
+        memo[state] = res
+        return res
+
+    # Начинаем с 0-го города, маска включает только его (1 << 0)
+    return get_path(1, 0)
+
+# Пример: матрица расстояний между 4 городами
+# dist[i][j] — расстояние от i до j
+dist_matrix = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+result = solve_tsp(dist_matrix)
+print(f"Кратчайший маршрут: {result}")
+
