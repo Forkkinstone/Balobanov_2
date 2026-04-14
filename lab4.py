@@ -47,3 +47,25 @@ def kmp_search(text, pattern):
                 i += 1
 
     return occurrences
+
+if __name__ == "__main__":
+    # Тестовые данные
+    sample_text = "ABABDABACDABABCABAB"
+    sample_pattern = "ABABCABAB"
+
+    print(f"Текст для поиска: {sample_text}")
+    print(f"Искомый образец:  {sample_pattern}")
+    print("-" * 30)
+
+    # Запуск поиска
+    indices = kmp_search(sample_text, sample_pattern)
+
+    if indices:
+        print(f"Найдено вхождений: {len(indices)}")
+        for idx in indices:
+            print(f"Образец найден на позиции: {idx}")
+            # Визуализация места вхождения
+            print(sample_text)
+            print(" " * idx + "^" * len(sample_pattern))
+    else:
+        print("Вхождений не найдено.")
