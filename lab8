@@ -1,0 +1,25 @@
+def count_change_ways(amount, coins):
+    # Создаем массив размером amount + 1, заполненный нулями
+    # dp[i] будет хранить количество способов собрать сумму i
+    dp = [0] * (amount + 1)
+    
+    # Базовый случай: собрать сумму 0 можно 1 способом (не брать монет)
+    dp[0] = 1
+    
+    # Перебираем каждую доступную монету
+    for coin in coins:
+        # Обновляем значения dp для всех сумм, начиная от номинала монеты до цели
+        for i in range(coin, amount + 1):
+            # Количество способов собрать i увеличивается на количество
+            # способов собрать сумму (i - текущая монета)
+            dp[i] += dp[i - coin]
+            
+    return dp[amount]
+
+# Пример использования:
+target_amount = 5
+coin_denominations = [1, 2, 5]
+
+result = count_change_ways(target_amount, coin_denominations)
+print(f"Количество способов разменять {target_amount}: {result}")
+
