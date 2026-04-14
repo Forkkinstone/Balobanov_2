@@ -37,3 +37,23 @@ def bms_search(text, pattern):
             shift += max(1, bad_char_shift)
 
     return occurrences
+
+if __name__ == "__main__":
+    text_to_search = "HERE IS A SIMPLE EXAMPLE"
+    pattern_to_find = "EXAMPLE"
+
+    print(f"Текст:   {text_to_search}")
+    print(f"Образец: {pattern_to_find}")
+    print("-" * 30)
+
+    results = bms_search(text_to_search, pattern_to_find)
+
+    if results:
+        print(f"Найдено совпадений: {len(results)}")
+        for pos in results:
+            print(f"Позиция начала вхождения: {pos}")
+            # Наглядная визуализация
+            print(text_to_search)
+            print(" " * pos + "^" * len(pattern_to_find))
+    else:
+        print("Совпадений не обнаружено.")
